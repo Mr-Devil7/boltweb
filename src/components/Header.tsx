@@ -1,5 +1,5 @@
 // src/components/Header.tsx
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { ShoppingCart, Menu, X, Leaf, Cloud, Globe } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
 import { LanguageContext } from '../context/LanguageContext';
@@ -12,8 +12,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
   const { getTotalItems, setIsCartOpen } = useCart();
   const { language, setLanguage, t } = useContext(LanguageContext);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [isWeatherOpen, setIsWeatherOpen] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isWeatherOpen, setIsWeatherOpen] = useState(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const languageRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
     { id: 'home', label: t('header.home') },
@@ -31,6 +33,17 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
     { code: 'mr', name: 'मारवाड़ी' },
     { code: 'rj', name: 'राजस्थानी' },
   ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
+        setIsLanguageOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -62,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
               ))}
             </nav>
 
-            {/* Weather, Language, Cart and Mobile Menu */}
+            {/* Weather, Language, Cart, and Mobile Menu */}
             <div className="flex items-center space-x-4">
               {/* Weather Button */}
               <button
@@ -74,26 +87,32 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
               </button>
 
               {/* Language Dropdown */}
-              <div className="relative">
+              <div className="relative" ref={languageRef}>
                 <button
+                  onClick={() => setIsLanguageOpen(!isLanguageOpen)}
                   className="flex items-center p-2 text-gray-700 hover:text-green-600 transition-colors duration-200"
                   title="Select Language"
                 >
                   <Globe className="h-6 w-6" />
                 </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50 hidden group-hover:block">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => setLanguage(lang.code)}
-                      className={`block w-full text-left px-4 py-2 text-sm ${
-                        language === lang.code ? 'bg-green-50 text-green-600' : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      {lang.name}
-                    </button>
-                  ))}
-                </div>
+                {isLanguageOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => {
+                          setLanguage(lang.code);
+                          setIsLanguageOpen(false);
+                        }}
+                        className={`block w-full text-left px-4 py-2 text-sm ${
+                          language === lang.code ? 'bg-green-50 text-green-600' : 'text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        {lang.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Cart Button */}
