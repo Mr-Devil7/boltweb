@@ -80,5 +80,50 @@
     "title": "Choose Your Language",
     "select": "Select Language",
     "confirm": "Confirm"
-  }
+  },
+  "weather": {
+  "rajasthan": {
+    "location": "Jaipur, Rajasthan",
+    "condition": "Hot & Sunny",
+    "forecast": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sunny": "Sunny",
+      "hot": "Hot",
+      "cloudy": "Cloudy"
+    },
+    "tips": {
+      "irrigation": "Irrigate early in the morning due to heat",
+      "shade": "Use shade to protect crops from intense sunlight",
+      "drip": "Use drip irrigation to save water"
+    }
+  },
+  "chennai": {
+    "location": "Chennai, Tamil Nadu",
+    "condition": "Humid & Partly Cloudy",
+    "forecast": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "cloudy": "Cloudy",
+      "rainy": "Rainy",
+      "sunny": "Sunny"
+    },
+    "tips": {
+      "fungus": "Monitor for fungal diseases due to high humidity",
+      "drainage": "Ensure proper drainage during the rainy season",
+      "ventilation": "Use coastal winds to enhance natural ventilation"
+    }
+  },
+  "humidity": "Humidity",
+  "wind": "Wind",
+  "forecast_title": "5-Day Forecast",
+  "tips_title": "🌾 Farming Tips",
+  "source": "Weather data updates every 30 seconds"
+}
 }
