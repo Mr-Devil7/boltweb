@@ -1,3 +1,4 @@
+// src/App.tsx
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -10,6 +11,7 @@ import Footer from './components/Footer';
 import Terms from './components/Terms';
 import Services from './components/Services';
 import Cart from './components/Cart';
+import LanguagePopup from './components/LanguagePopup';
 import { useCart } from './hooks/useCart';
 
 function App() {
@@ -18,7 +20,6 @@ function App() {
 
   const handleNavigate = (section: string) => {
     setCurrentSection(section);
-    // Smooth scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -48,11 +49,10 @@ function App() {
   return (
     <div className="min-h-screen bg-white">
       <Header currentSection={currentSection} onNavigate={handleNavigate} />
-      <main>
-        {renderContent()}
-      </main>
+      <main>{renderContent()}</main>
       <Footer onNavigate={handleNavigate} />
       <Cart />
+      <LanguagePopup />
     </div>
   );
 }
