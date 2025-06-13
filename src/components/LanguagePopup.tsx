@@ -3,7 +3,11 @@ import React, { useContext, useState, useEffect } from 'react';
 import { X, Globe } from 'lucide-react';
 import { LanguageContext } from '../context/LanguageContext';
 
-const LanguagePopup: React.FC = () => {
+interface LanguagePopupProps {
+  onClose?: () => void; // Optional prop to allow manual closing (e.g., from Header)
+}
+
+const LanguagePopup: React.FC<LanguagePopupProps> = ({ onClose }) => {
   const { language, setLanguage, t } = useContext(LanguageContext);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(language);
@@ -18,6 +22,7 @@ const LanguagePopup: React.FC = () => {
     { code: 'rj', name: 'राजस्थानी' },
   ];
 
+  // Check for first-time visitors
   useEffect(() => {
     const hasVisited = localStorage.getItem('hasVisited');
     if (!hasVisited) {
@@ -26,46 +31,67 @@ const LanguagePopup: React.FC = () => {
     }
   }, []);
 
+  // Allow manual opening via prop (e.g., from Header)
+  useEffect(() => {
+    if (onClose !== undefined) {
+      setIsOpen(true);
+    }
+  }, [onClose]);
+
   const handleConfirm = () => {
     setLanguage(selectedLanguage);
     setIsOpen(false);
+    if (onClose) onClose();
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    if (onClose) onClose();
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6">
-        <div className="flex items-center justify-between mb-4">
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+      <div
+        className="bg-white rounded-2xl shadow-xl max-w-md w-full transform transition-all duration-300 scale-95 opacity-0 animate-pop-up"
+      >
+        {/* Header with Gradient */}
+        <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Globe className="h-5 w-5 text-green-600" />
-            <h2 className="text-lg font-bold text-gray-900">{t('language_popup.title')}</h2>
+            <Globe className="h-6 w-6" />
+            <h2 className="text-xl font-semibold">{t('language_popup.title')}</h2>
           </div>
           <button
-            onClick={() => setIsOpen(false)}
-            className="p-1 hover:bg-gray-100 rounded"
+            onClick={handleClose}
+            className="p-1 hover:bg-white/20 rounded-full transition-colors"
           >
-            <X className="h-4 w-4 text-gray-600" />
+            <X className="h-5 w-5" />
           </button>
         </div>
-        <select
-          value={selectedLanguage}
-          onChange={(e) => setSelectedLanguage(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-lg mb-4"
-        >
-          <option value="" disabled>{t('language_popup.select')}</option>
-          {languages.map((lang) => (
-            <option key={lang.code} value={lang.code}>
-              {lang.name}
-            </option>
-          ))}
-        </select>
-        <button
-          onClick={handleConfirm}
-          className="w-full bg-green-600 text-white py-2 rounded-lg font-medium hover:bg-green-700 transition-colors"
-        >
-          {t('language_popup.confirm')}
-        </button>
+        {/* Body */}
+        <div className="p-6">
+          <label className="block text-gray-700 font-medium mb-2">
+            {t('language_popup.select')}
+          </label>
+          <select
+            value={selectedLanguage}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all text-gray-700 bg-gray-50 hover:bg-gray-100"
+          >
+            {languages.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.name}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={handleConfirm}
+            className="mt-4 w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-lg font-medium hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md"
+          >
+            {t('language_popup.confirm')}
+          </button>
+        </div>
       </div>
     </div>
   );
