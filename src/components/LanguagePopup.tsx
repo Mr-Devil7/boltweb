@@ -57,7 +57,7 @@ const LanguagePopup: React.FC<LanguagePopupProps> = ({ onClose }) => {
         className="bg-white rounded-2xl shadow-xl max-w-md w-full transform transition-all duration-300 scale-95 opacity-0 animate-pop-up"
       >
         {/* Header with Gradient */}
-        <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
+        <div className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-2xl flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Globe className="h-6 w-6" />
             <h2 className="text-xl font-semibold">{t('language_popup.title')}</h2>
@@ -71,13 +71,13 @@ const LanguagePopup: React.FC<LanguagePopupProps> = ({ onClose }) => {
         </div>
         {/* Body */}
         <div className="p-6">
-          <label className="block text-gray-700 font-medium mb-2">
+          <label className="block text-text font-medium mb-2">
             {t('language_popup.select')}
           </label>
           <select
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}
-            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all text-gray-700 bg-gray-50 hover:bg-gray-100"
+            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-text bg-background hover:bg-accent/10"
           >
             {languages.map((lang) => (
               <option key={lang.code} value={lang.code}>
@@ -87,7 +87,7 @@ const LanguagePopup: React.FC<LanguagePopupProps> = ({ onClose }) => {
           </select>
           <button
             onClick={handleConfirm}
-            className="mt-4 w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-lg font-medium hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md"
+            className="mt-4 w-full bg-gradient-to-r from-primary to-primary-dark text-white py-3 rounded-lg font-medium hover:from-primary-dark hover:to-primary transition-all duration-200 shadow-md"
           >
             {t('language_popup.confirm')}
           </button>

@@ -1,6 +1,6 @@
 // src/components/Header.tsx
 import React, { useContext, useState } from 'react';
-import { ShoppingCart, Menu, X, Leaf, Cloud, Globe } from 'lucide-react';
+import { ShoppingCart, Menu, X, Cloud, Globe } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
 import { LanguageContext } from '../context/LanguageContext';
 import LanguagePopup from './LanguagePopup';
@@ -31,10 +31,22 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-2 cursor-pointer" onClick={() => onNavigate('home')}>
-              <div className="bg-green-600 p-2 rounded-lg">
-                <Leaf className="h-6 w-6 text-white" />
+              <img
+                src="/image.png"
+                alt="Agrow Logo"
+                className="h-10 w-auto"
+                onError={(e) => {
+                  // Fallback to text logo if image fails to load
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling!.style.display = 'block';
+                }}
+              />
+              <div className="hidden">
+                <div className="bg-primary p-2 rounded-lg">
+                  <div className="h-6 w-6 text-white font-bold flex items-center justify-center">A</div>
+                </div>
+                <span className="text-2xl font-bold text-primary">Agrow</span>
               </div>
-              <span className="text-2xl font-bold text-gray-900">Agrow</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -45,8 +57,8 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
                   onClick={() => onNavigate(item.id)}
                   className={`font-medium transition-colors duration-200 ${
                     currentSection === item.id
-                      ? 'text-green-600 border-b-2 border-green-600 pb-1'
-                      : 'text-gray-700 hover:text-green-600'
+                      ? 'text-primary border-b-2 border-primary pb-1'
+                      : 'text-text hover:text-primary'
                   }`}
                 >
                   {item.label}
@@ -59,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
               {/* Weather Button */}
               <button
                 onClick={() => setIsWeatherOpen(true)}
-                className="relative p-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                className="relative p-2 text-text hover:text-secondary transition-colors duration-200"
                 title={t('header.weather')}
               >
                 <Cloud className="h-6 w-6" />
@@ -68,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
               {/* Language Button */}
               <button
                 onClick={() => setIsLanguagePopupOpen(true)}
-                className="flex items-center p-2 text-gray-700 hover:text-green-600 transition-colors duration-200"
+                className="flex items-center p-2 text-text hover:text-primary transition-colors duration-200"
                 title="Select Language"
               >
                 <Globe className="h-6 w-6" />
@@ -77,11 +89,11 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
               {/* Cart Button */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 text-gray-700 hover:text-green-600 transition-colors duration-200"
+                className="relative p-2 text-text hover:text-primary transition-colors duration-200"
               >
                 <ShoppingCart className="h-6 w-6" />
                 {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {getTotalItems()}
                   </span>
                 )}
@@ -90,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 text-gray-700"
+                className="md:hidden p-2 text-text"
               >
                 {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -110,8 +122,8 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
                     }}
                     className={`text-left py-2 px-4 rounded-lg transition-colors duration-200 ${
                       currentSection === item.id
-                        ? 'bg-green-50 text-green-600 font-medium'
-                        : 'text-gray-700 hover:bg-gray-50'
+                        ? 'bg-accent/20 text-primary font-medium'
+                        : 'text-text hover:bg-background'
                     }`}
                   >
                     {item.label}
@@ -127,7 +139,7 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
       {isWeatherOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden animate-in slide-in-from-top-4 duration-300">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-green-600 text-white">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-secondary to-primary text-white">
               <div className="flex items-center space-x-3">
                 <Cloud className="h-6 w-6" />
                 <h2 className="text-xl font-bold">{t('header.weather')}</h2>
@@ -154,7 +166,7 @@ const Header: React.FC<HeaderProps> = ({ currentSection, onNavigate }) => {
   );
 };
 
-// WeatherContent component (unchanged for brevity, but ensure translations are in place)
+// WeatherContent component
 const WeatherContent: React.FC = () => {
   const { t } = useContext(LanguageContext);
   const [selectedCity, setSelectedCity] = React.useState<'rajasthan' | 'chennai'>('rajasthan');
@@ -228,7 +240,7 @@ const WeatherContent: React.FC = () => {
         <button
           onClick={() => setSelectedCity('rajasthan')}
           className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-            selectedCity === 'rajasthan' ? 'bg-orange-600 text-white shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            selectedCity === 'rajasthan' ? 'bg-secondary text-white shadow-lg' : 'bg-background text-text hover:bg-accent/20'
           }`}
         >
           🏜️ {t('weather.rajasthan.location')}
@@ -236,7 +248,7 @@ const WeatherContent: React.FC = () => {
         <button
           onClick={() => setSelectedCity('chennai')}
           className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-            selectedCity === 'chennai' ? 'bg-blue-600 text-white shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            selectedCity === 'chennai' ? 'bg-primary text-white shadow-lg' : 'bg-background text-text hover:bg-accent/20'
           }`}
         >
           🌊 {t('weather.chennai.location')}
@@ -245,17 +257,17 @@ const WeatherContent: React.FC = () => {
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1">
-          <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-6 text-center">
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">{currentWeather.location}</h3>
-            <div className="text-4xl font-bold text-gray-900 mb-2">{currentWeather.temperature}°C</div>
-            <p className="text-gray-600 font-medium mb-4">{currentWeather.condition}</p>
+          <div className="bg-gradient-to-br from-accent/20 to-primary/10 rounded-xl p-6 text-center">
+            <h3 className="text-lg font-semibold text-text mb-2">{currentWeather.location}</h3>
+            <div className="text-4xl font-bold text-primary mb-2">{currentWeather.temperature}°C</div>
+            <p className="text-text/70 font-medium mb-4">{currentWeather.condition}</p>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div className="bg-white/70 rounded-lg p-2">
-                <div className="text-blue-600 font-medium">{t('weather.humidity')}</div>
+                <div className="text-secondary font-medium">{t('weather.humidity')}</div>
                 <div className="font-bold">{currentWeather.humidity}%</div>
               </div>
               <div className="bg-white/70 rounded-lg p-2">
-                <div className="text-green-600 font-medium">{t('weather.wind')}</div>
+                <div className="text-primary font-medium">{t('weather.wind')}</div>
                 <div className="font-bold">{currentWeather.windSpeed} km/h</div>
               </div>
             </div>
@@ -264,17 +276,17 @@ const WeatherContent: React.FC = () => {
 
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">{t('weather.forecast_title')}</h3>
+            <h3 className="text-xl font-bold text-primary mb-4">{t('weather.forecast_title')}</h3>
             <div className="grid grid-cols-5 gap-3">
               {currentWeather.forecast.map((day, index) => (
-                <div key={index} className="text-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                  <p className="font-semibold text-gray-900 mb-2 text-sm">{day.day}</p>
+                <div key={index} className="text-center p-3 rounded-lg hover:bg-accent/10 transition-colors">
+                  <p className="font-semibold text-text mb-2 text-sm">{day.day}</p>
                   <div className="mb-2 flex justify-center">{getWeatherIcon(day.icon)}</div>
                   <div className="space-y-1">
-                    <p className="text-lg font-bold text-gray-900">{day.high}°</p>
-                    <p className="text-sm text-gray-500">{day.low}°</p>
+                    <p className="text-lg font-bold text-primary">{day.high}°</p>
+                    <p className="text-sm text-text/60">{day.low}°</p>
                   </div>
-                  <p className="text-xs text-gray-600 mt-1">{day.condition}</p>
+                  <p className="text-xs text-text/60 mt-1">{day.condition}</p>
                 </div>
               ))}
             </div>
@@ -282,18 +294,18 @@ const WeatherContent: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-6">
-        <h4 className="text-xl font-bold text-gray-900 mb-4">{t('weather.tips_title')}</h4>
+      <div className="bg-gradient-to-r from-accent/20 to-primary/10 rounded-xl p-6">
+        <h4 className="text-xl font-bold text-primary mb-4">{t('weather.tips_title')}</h4>
         <div className="grid md:grid-cols-3 gap-4">
           {currentWeather.tips.map((tip, index) => (
             <div key={index} className="bg-white/80 rounded-lg p-4">
-              <p className="text-gray-700 text-sm leading-relaxed">{tip}</p>
+              <p className="text-text text-sm leading-relaxed">{tip}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="text-center text-sm text-gray-500">{t('weather.source')}</div>
+      <div className="text-center text-sm text-text/60">{t('weather.source')}</div>
     </div>
   );
 };

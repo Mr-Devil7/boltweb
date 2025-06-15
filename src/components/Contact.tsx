@@ -61,11 +61,11 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-4xl font-bold text-primary mb-4">Get in Touch</h2>
+          <p className="text-xl text-text/70 max-w-3xl mx-auto">
             Ready to transform your agricultural operations? Contact our team of experts 
             to discuss your needs and find the perfect solution for your farm.
           </p>
@@ -75,35 +75,35 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-primary mb-6">Contact Information</h3>
               <div className="space-y-4">
                 {contactInfo.map((info, index) => (
                   <a
                     key={index}
                     href={info.action}
-                    className="flex items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                    className="flex items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-100"
                   >
-                    <div className="bg-green-100 p-3 rounded-lg mr-4">
-                      <info.icon className="h-6 w-6 text-green-600" />
+                    <div className="bg-accent/20 p-3 rounded-lg mr-4">
+                      <info.icon className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900">{info.title}</h4>
-                      <p className="text-gray-600">{info.value}</p>
+                      <h4 className="font-medium text-primary">{info.title}</h4>
+                      <p className="text-text/70">{info.value}</p>
                     </div>
                   </a>
                 ))}
               </div>
             </div>
 
-            <div className="bg-green-600 text-white p-8 rounded-xl">
+            <div className="bg-primary text-white p-8 rounded-xl">
               <h3 className="text-2xl font-bold mb-4">Quick Support</h3>
-              <p className="text-green-100 mb-6">
+              <p className="text-white/90 mb-6">
                 Need immediate assistance? Contact us directly via WhatsApp for 
                 quick support and real-time communication with our team.
               </p>
               <button
                 onClick={() => window.open('https://wa.me/1234567890', '_blank')}
-                className="bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-green-50 transition-colors flex items-center space-x-2"
+                className="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-accent/20 transition-colors flex items-center space-x-2"
               >
                 <MessageCircle className="h-5 w-5" />
                 <span>Chat on WhatsApp</span>
@@ -112,22 +112,22 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white p-8 rounded-xl shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
+          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+            <h3 className="text-2xl font-bold text-primary mb-6">Send us a Message</h3>
             
             {isSubmitted ? (
               <div className="text-center py-8">
-                <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Send className="h-8 w-8 text-green-600" />
+                <div className="bg-accent/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Send className="h-8 w-8 text-primary" />
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h4>
-                <p className="text-gray-600">We'll get back to you soon via WhatsApp.</p>
+                <h4 className="text-xl font-bold text-primary mb-2">Message Sent!</h4>
+                <p className="text-text/70">We'll get back to you soon via WhatsApp.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-text mb-2">
                       Full Name
                     </label>
                     <input
@@ -137,12 +137,12 @@ const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder="Enter your full name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-text mb-2">
                       Email Address
                     </label>
                     <input
@@ -152,14 +152,14 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder="Enter your email"
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="phone" className="block text-sm font-medium text-text mb-2">
                     Phone Number
                   </label>
                   <input
@@ -168,13 +168,13 @@ const Contact: React.FC = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="Enter your phone number"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-text mb-2">
                     Message
                   </label>
                   <textarea
@@ -184,7 +184,7 @@ const Contact: React.FC = () => {
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="Tell us about your needs..."
                   />
                 </div>
@@ -192,7 +192,7 @@ const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
+                  className="w-full bg-primary text-white py-3 rounded-lg font-medium hover:bg-primary-dark transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <span>Sending...</span>

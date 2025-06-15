@@ -1,5 +1,5 @@
 import React from 'react';
-import { Leaf, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (section: string) => void;
@@ -43,34 +43,46 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-5 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-6">
-              <div className="bg-green-600 p-2 rounded-lg">
-                <Leaf className="h-6 w-6 text-white" />
+              <img
+                src="/image.png"
+                alt="Agrow Logo"
+                className="h-8 w-auto brightness-0 invert"
+                onError={(e) => {
+                  // Fallback to text logo if image fails to load
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling!.style.display = 'flex';
+                }}
+              />
+              <div className="hidden items-center space-x-2">
+                <div className="bg-white p-2 rounded-lg">
+                  <div className="h-6 w-6 text-primary font-bold flex items-center justify-center">A</div>
+                </div>
+                <span className="text-2xl font-bold">Agrow</span>
               </div>
-              <span className="text-2xl font-bold">Agrow</span>
             </div>
-            <p className="text-gray-300 mb-6 leading-relaxed">
+            <p className="text-white/80 mb-6 leading-relaxed">
               Revolutionizing agriculture through innovative technology solutions. 
               Empowering farmers worldwide with smart, sustainable, and efficient farming tools.
             </p>
             
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-green-500" />
-                <span className="text-gray-300">info@agrow.com</span>
+                <Mail className="h-5 w-5 text-accent" />
+                <span className="text-white/80">info@agrow.com</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-green-500" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <Phone className="h-5 w-5 text-accent" />
+                <span className="text-white/80">+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-green-500" />
-                <span className="text-gray-300">123 Agriculture Tech Blvd, Farm City, FC 12345</span>
+                <MapPin className="h-5 w-5 text-accent" />
+                <span className="text-white/80">123 Agriculture Tech Blvd, Farm City, FC 12345</span>
               </div>
             </div>
           </div>
@@ -83,7 +95,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <li key={index}>
                   <button
                     onClick={link.action}
-                    className="text-gray-300 hover:text-green-400 transition-colors"
+                    className="text-white/80 hover:text-accent transition-colors"
                   >
                     {link.label}
                   </button>
@@ -99,7 +111,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <li key={index}>
                   <button
                     onClick={link.action}
-                    className="text-gray-300 hover:text-green-400 transition-colors"
+                    className="text-white/80 hover:text-accent transition-colors"
                   >
                     {link.label}
                   </button>
@@ -115,7 +127,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <li key={index}>
                   <button
                     onClick={link.action}
-                    className="text-gray-300 hover:text-green-400 transition-colors"
+                    className="text-white/80 hover:text-accent transition-colors"
                   >
                     {link.label}
                   </button>
@@ -126,7 +138,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Social Links */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
+        <div className="border-t border-white/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex space-x-6 mb-4 md:mb-0">
               {socialLinks.map((social, index) => (
@@ -135,7 +147,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-green-400 transition-colors"
+                  className="text-white/60 hover:text-accent transition-colors"
                   aria-label={social.label}
                 >
                   <social.icon className="h-6 w-6" />
@@ -143,10 +155,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               ))}
             </div>
             <div className="text-center md:text-right">
-              <p className="text-gray-400">
+              <p className="text-white/60">
                 © {currentYear} Agrow. All rights reserved.
               </p>
-              <p className="text-gray-500 text-sm mt-1">
+              <p className="text-white/40 text-sm mt-1">
                 Registered trademark of Agrow Technologies Inc.
               </p>
             </div>

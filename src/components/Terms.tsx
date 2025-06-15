@@ -46,30 +46,30 @@ const Terms: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-white min-h-screen">
+    <section className="py-20 bg-background min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Terms of Use</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="text-4xl font-bold text-primary mb-4">Terms of Use</h1>
+          <p className="text-xl text-text/70">
             Please read these terms carefully before using our services.
           </p>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-text/60 mt-2">
             Last updated: January 2025
           </p>
         </div>
 
         <div className="space-y-12">
           {sections.map((section, index) => (
-            <div key={index} className="bg-gray-50 rounded-xl p-8">
+            <div key={index} className="bg-white rounded-xl p-8 border border-gray-100">
               <div className="flex items-center mb-6">
-                <div className="bg-green-100 p-3 rounded-lg mr-4">
-                  <section.icon className="h-6 w-6 text-green-600" />
+                <div className="bg-accent/20 p-3 rounded-lg mr-4">
+                  <section.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900">{section.title}</h2>
+                <h2 className="text-2xl font-bold text-primary">{section.title}</h2>
               </div>
               <div className="space-y-4">
                 {section.content.map((item, itemIndex) => (
-                  <p key={itemIndex} className="text-gray-700 leading-relaxed">
+                  <p key={itemIndex} className="text-text/70 leading-relaxed">
                     {item}
                   </p>
                 ))}
@@ -78,28 +78,28 @@ const Terms: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-16 bg-green-50 rounded-xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Questions about our Terms?</h3>
-          <p className="text-gray-600 mb-6">
+        <div className="mt-16 bg-accent/10 rounded-xl p-8 text-center">
+          <h3 className="text-2xl font-bold text-primary mb-4">Questions about our Terms?</h3>
+          <p className="text-text/70 mb-6">
             If you have any questions about these Terms of Use, please don't hesitate to contact us.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="mailto:legal@agrow.com"
-              className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
+              className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-dark transition-colors"
             >
               Email Legal Team
             </a>
             <a
               href="tel:+15551234567"
-              className="border border-green-600 text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-green-50 transition-colors"
+              className="border border-primary text-primary px-6 py-3 rounded-lg font-medium hover:bg-accent/20 transition-colors"
             >
               Call Support
             </a>
           </div>
         </div>
 
-        <div className="mt-12 text-center text-sm text-gray-500">
+        <div className="mt-12 text-center text-sm text-text/60">
           <p>
             By continuing to use our services, you acknowledge that you have read, 
             understood, and agree to be bound by these Terms of Use.
